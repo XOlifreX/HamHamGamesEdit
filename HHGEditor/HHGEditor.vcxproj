@@ -118,7 +118,6 @@
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MultiSave.cpp" />
     <ClCompile Include="old_main.cpp" />
     <ClCompile Include="Save.cpp" />
     <ClCompile Include="SaveManager.cpp" />
@@ -126,7 +125,6 @@
   <ItemGroup>
     <ClInclude Include="File.h" />
     <ClInclude Include="Location.h" />
-    <ClInclude Include="MultiSave.h" />
     <ClInclude Include="Save.h" />
     <ClInclude Include="SaveManager.h" />
   </ItemGroup>

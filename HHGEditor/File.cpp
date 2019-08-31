@@ -83,7 +83,7 @@ std::string File::getStringAt(long index, short size) {
 	if (index >= 0 &&
 		index < SAVE_SIZE &&
 		(index + size) < SAVE_SIZE &&
-		size <= Save::MAX_STRING_SIZE_BYTES &&
+		size <= MAX_STRING_SIZE &&
 		size >= 1
 		) {
 
@@ -120,13 +120,13 @@ void File::setStringAt(long index, const std::string value) {
 
 	if (index >= 0 &&
 		index < SAVE_SIZE &&
-		size <= Save::MAX_STRING_SIZE_BYTES
+		size <= MAX_STRING_SIZE
 		) {
 
 		short j = 0;
 		short stringIndex = 0;
 		bool finalSet = false;
-		for (int i = index; i < (index + Save::MAX_STRING_SIZE_BYTES); i++) {
+		for (int i = index; i < (index + MAX_STRING_SIZE); i++) {
 
 			switch (j % 4) {
 			case 0:

@@ -33,9 +33,6 @@
     <ClCompile Include="Location.cpp">
       <Filter>Source Files\Save</Filter>
     </ClCompile>
-    <ClCompile Include="MultiSave.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Save.cpp">
       <Filter>Source Files\Save</Filter>
     </ClCompile>
@@ -48,9 +45,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Location.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MultiSave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Save.h">

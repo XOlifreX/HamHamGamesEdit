@@ -4,6 +4,7 @@ QtView::QtView(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 	// this->sv = new SaveManager();
 	connect(ui.actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
 	connect(ui.actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
@@ -61,17 +62,60 @@ bool QtView::checkUserInputs() {
 		return false;
 	if (!this->setUsername())
 		return false;
+	if (!this->setGreetingMessage())
+		return false;
+	if (!this->setGoodbyeMessage())
+		return false;
+	if (!this->setGratitudeMessage())
+		return false;
+	if (!this->setReasoningMessage())
+		return false;
+	if (!this->setJobMessage())
+		return false;
+	if (!this->setLanguageMessage())
+		return false;
+	if (!this->setFoodMessage())
+		return false;
+	if (!this->setVacationMessage())
+		return false;
 	return true;
 }
 
 // We string check purely to check if the fields have changed, not if the field are valid.
 bool QtView::isModified() {
 
+	// General
 	if (strcmp(std::to_string(this->sv->getSeedCount()).c_str(), ui.txtSeeds->text().toStdString().c_str()) != 0)
 		return true;
 
+	// Profile
 	if (strcmp(this->sv->getUsername().c_str(), ui.txtUsername->text().toStdString().c_str()) != 0)
 		return true;
+
+	if (strcmp(this->sv->getGreetingMessage().c_str(), ui.txtGreeting->text().toStdString().c_str()) != 0)
+		return true;
+
+	if (strcmp(this->sv->getGoodbyeMessage().c_str(), ui.txtGoodbye->text().toStdString().c_str()) != 0)
+		return true;
+
+	if (strcmp(this->sv->getGratitudeMessage().c_str(), ui.txtGratitude->text().toStdString().c_str()) != 0)
+		return true;
+
+	if (strcmp(this->sv->getReasoningMessage().c_str(), ui.txtReasoning->text().toStdString().c_str()) != 0)
+		return true;
+
+	if (strcmp(this->sv->getJobMessage().c_str(), ui.txtJob->text().toStdString().c_str()) != 0)
+		return true;
+
+	if (strcmp(this->sv->getLanguageMessage().c_str(), ui.txtLanguage->text().toStdString().c_str()) != 0)
+		return true;
+
+	if (strcmp(this->sv->getFoodMessage().c_str(), ui.txtFood->text().toStdString().c_str()) != 0)
+		return true;
+
+	if (strcmp(this->sv->getVacationMessage().c_str(), ui.txtVacation->text().toStdString().c_str()) != 0)
+		return true;
+
 
 	return false;
 
@@ -94,6 +138,49 @@ bool QtView::handleOnClose() {
 	}
 
 	return true;
+
+}
+
+void QtView::toggleEditWidgets(bool state) {
+
+	// Menu actions
+	ui.actionSave->setEnabled(state);
+	ui.actionSave_As->setEnabled(state);
+
+	// General
+	ui.txtSeeds->setEnabled(state);
+
+	// Profile
+	ui.txtUsername->setEnabled(state);
+
+	ui.txtGreeting->setEnabled(state);
+	ui.txtGoodbye->setEnabled(state);
+	ui.txtGratitude->setEnabled(state);
+	ui.txtReasoning->setEnabled(state);
+	ui.txtJob->setEnabled(state);
+	ui.txtLanguage->setEnabled(state);
+	ui.txtFood->setEnabled(state);
+	ui.txtVacation->setEnabled(state);
+
+}
+
+void QtView::loadInValues() {
+
+	// General
+	ui.txtSeeds->setText(QString::number(this->sv->getSeedCount()));
+
+	// Profile
+	ui.txtUsername->setText(QString::fromStdString(this->sv->getUsername()));
+
+	ui.txtGreeting->setText(QString::fromStdString(this->sv->getGreetingMessage()));
+	ui.txtGoodbye->setText(QString::fromStdString(this->sv->getGoodbyeMessage()));
+	ui.txtGratitude->setText(QString::fromStdString(this->sv->getGratitudeMessage()));
+	ui.txtReasoning->setText(QString::fromStdString(this->sv->getReasoningMessage()));
+	ui.txtJob->setText(QString::fromStdString(this->sv->getJobMessage()));
+	ui.txtLanguage->setText(QString::fromStdString(this->sv->getLanguageMessage()));
+	ui.txtFood->setText(QString::fromStdString(this->sv->getFoodMessage()));
+	ui.txtVacation->setText(QString::fromStdString(this->sv->getVacationMessage()));
+
 
 }
 
@@ -162,6 +249,118 @@ bool QtView::setUsername() {
 
 }
 
+bool QtView::setGreetingMessage() {
+
+	std::string value = ui.txtGreeting->text().toStdString();
+
+	if (value.size() > 15) {
+		this->showWarningDialog("Failed setting greeting message! The maximum size of any message is 15.");
+		return false;
+	}
+
+	this->sv->setGreetingMessage(value);
+	return true;
+
+}
+
+bool QtView::setGoodbyeMessage() {
+
+	std::string value = ui.txtGoodbye->text().toStdString();
+
+	if (value.size() > 15) {
+		this->showWarningDialog("Failed setting goodbye message! The maximum size of any message is 15.");
+		return false;
+	}
+
+	this->sv->setGoodbyeMessage(value);
+	return true;
+
+}
+
+bool QtView::setGratitudeMessage() {
+
+	std::string value = ui.txtGratitude->text().toStdString();
+
+	if (value.size() > 15) {
+		this->showWarningDialog("Failed setting gratitude message! The maximum size of any message is 15.");
+		return false;
+	}
+
+	this->sv->setGratitudeMessage(value);
+	return true;
+
+}
+
+bool QtView::setReasoningMessage() {
+
+	std::string value = ui.txtReasoning->text().toStdString();
+
+	if (value.size() > 15) {
+		this->showWarningDialog("Failed setting reasoning message! The maximum size of any message is 15.");
+		return false;
+	}
+
+	this->sv->setReasoningMessage(value);
+	return true;
+
+}
+
+bool QtView::setJobMessage() {
+
+	std::string value = ui.txtJob->text().toStdString();
+
+	if (value.size() > 15) {
+		this->showWarningDialog("Failed setting job message! The maximum size of any message is 15.");
+		return false;
+	}
+
+	this->sv->setJobMessage(value);
+	return true;
+
+}
+
+bool QtView::setLanguageMessage() {
+
+	std::string value = ui.txtLanguage->text().toStdString();
+
+	if (value.size() > 15) {
+		this->showWarningDialog("Failed setting language message! The maximum size of any message is 15.");
+		return false;
+	}
+
+	this->sv->setLanguageMessage(value);
+	return true;
+
+}
+
+bool QtView::setFoodMessage() {
+
+	std::string value = ui.txtFood->text().toStdString();
+
+	if (value.size() > 15) {
+		this->showWarningDialog("Failed setting food message! The maximum size of any message is 15.");
+		return false;
+	}
+
+	this->sv->setFoodMessage(value);
+	return true;
+
+}
+
+bool QtView::setVacationMessage() {
+
+	std::string value = ui.txtVacation->text().toStdString();
+
+	if (value.size() > 15) {
+		this->showWarningDialog("Failed setting vacation message! The maximum size of any message is 15.");
+		return false;
+	}
+
+	this->sv->setVacationMessage(value);
+	return true;
+
+}
+
 
 
 void QtView::openFile() {
@@ -174,13 +373,15 @@ void QtView::openFile() {
 	if (fileName == "")
 		return;
 
+	this->toggleEditWidgets(false);
+
 	if (this->sv == nullptr)
 		this->sv = new SaveManager(fileName);
 	else
 		this->sv->loadSave(fileName);
 
-	ui.txtSeeds->setText(QString::number(this->sv->getSeedCount()));
-	ui.txtUsername->setText(QString::fromStdString(this->sv->getUsername()));
+	this->loadInValues();
+	this->toggleEditWidgets(true);
 
 }
 

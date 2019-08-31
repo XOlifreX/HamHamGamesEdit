@@ -4,6 +4,7 @@
 enum Location {
 	CLUB_HOUSE_F1 = 0x0,
 	CLUB_HOUSE_F2 = 0x1,
+	CLUB_HOUSE_F2_MONITOR = 0x2,
 	
 	POOL_AREA_1 = 0x2,
 	POOL_AREA_2 = 0x3,
