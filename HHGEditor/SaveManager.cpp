@@ -29,11 +29,6 @@ std::string SaveManager::extractHamtaroString(std::string hamtaroString) {
 		// Actual string value
 		if (j % 4 == 2 && hamtaroString[i + 1] == 0x5)
 			value += hamtaroString[i];
-		// 0x5 is regular char value, 0x4 if special character
-		if (j % 4 == 3)
-		{
-			// 
-		}
 
 		j++;
 
