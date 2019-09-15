@@ -20,13 +20,10 @@ public:
 
 	long getValueAt(long index, short size);
 	void setValueAt(long index, unsigned char value);
-	std::string getStringAt(long index, short size);
-	void setStringAt(long index, const std::string value);
 
 	void applySaves();
 	void applySaves(std::string newSource);
 	void reloadSave();
-	long getIntegrityHash();
 
 	void loadFile(std::string file);
 	bool isModified();

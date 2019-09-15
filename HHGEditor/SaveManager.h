@@ -7,6 +7,15 @@ class SaveManager
 {
 private:
 	File* save;
+
+	std::string extractHamtaroString(std::string hamtaroString);
+	void setHamtaroStringAt(std::string message, int location);
+	
+	long getIntegrityHash(int padding = 0);
+	
+	std::string getStringAt(long index, short size);
+	void setStringAt(long index, const char* value);
+
 public:
 	SaveManager(std::string fileName);
 	SaveManager(File* file);
@@ -14,6 +23,7 @@ public:
 
 	bool isModified();
 	void loadSave(std::string file);
+	bool isValidSave();
 
 	void saveChanges();
 	void saveChanges(std::string newSource);

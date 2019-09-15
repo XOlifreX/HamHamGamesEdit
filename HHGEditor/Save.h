@@ -1,8 +1,11 @@
 #pragma once
+#define START_SAVE_1 0x200
+#define START_SAVE_2 0x4000
 #define SAVE_SIZE 0x8000
 #define MAX_PROFILE_MESSAGE_SIZE 0xC0
 #define MAX_SINGLE_PROFILE_MESSAGE_SIZE 0x60
 #define MAX_STRING_SIZE 0x3C
+#define SAVE_DATA_PART_SIZE 0x3DC4
 
 enum Save
 {
