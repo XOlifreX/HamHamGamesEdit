@@ -77,7 +77,11 @@ void SaveManager::setHamtaroStringAt(std::string message, int location) {
 
 }
 
-long SaveManager::getIntegrityHash(int padding) {
+long SaveManager::getIntegrityHash(bool save2) {
+
+	int padding = 0;
+	if (save2)
+		padding = START_SAVE_2 - START_SAVE_1;
 
 	long hash = 0;
 	for (int i = (START_SAVE_1 + padding); i < (START_SAVE_1 + SAVE_DATA_PART_SIZE + padding); i++) {
@@ -174,45 +178,46 @@ bool SaveManager::isValidSave() {
 		0x74,
 		0x61,
 		0x72,
-		0x6F
+		0x6F,
+		0x0
 	};
 
 	// Check header
-	for (int i = 0x200; i < 0x207; i++) {
+	for (int i = 0; i < 8; i++) {
 
-		if (this->save->getValueAt(i, 1) != validHeader[i - 0x200] ||
-			this->save ->getValueAt(i + 0x3E00, 1) != validHeader[i - 0x200])
+		if (this->save->getValueAt(i + START_SAVE_1, 1) != validHeader[i] ||
+			this->save ->getValueAt(i + START_SAVE_2, 1) != validHeader[i])
 			return false;
 	}
 
 	// Check all values
-	for (int i = 0x200; i < 0x4000; i++) {
-		if (this->save->getValueAt(i, 1) != this->save->getValueAt(i + 0x3E00, 1))
+	for (int i = 0; i < START_SAVE_2 - START_SAVE_1; i++) {
+		if (this->save->getValueAt(i + START_SAVE_1, 1) != this->save->getValueAt(i + START_SAVE_2, 1))
 			return false;
 	}
 	
 	// Check integrity checks
-	long hash1 = this->getIntegrityHash();
-	long hash2 = this->getIntegrityHash(START_SAVE_2 - START_SAVE_1);
+	long hash1 = this->getIntegrityHash(false);
+	long hash2 = this->getIntegrityHash(true);
 	
 	if (hash1 != hash2)
 		return false;
 
-	if ((unsigned char)(hash1 & 0x000000FF) != this->save->getValueAt(0x208, 1))
+	if ((unsigned char)(hash1 & 0x000000FF) != this->save->getValueAt(Save::INTEGRITY_HASH_1, 1))
 		return false;
-	if ((unsigned char)(hash2 & 0x000000FF) != this->save->getValueAt(0x4008, 1))
+	if ((unsigned char)(hash2 & 0x000000FF) != this->save->getValueAt(Save::INTEGRITY_HASH_2, 1))
 		return false;
-	if ((unsigned char)((hash1 >> 8) & 0x000000FF) != this->save->getValueAt(0x209, 1))
+	if ((unsigned char)((hash1 >> 8) & 0x000000FF) != this->save->getValueAt(Save::INTEGRITY_HASH_1 + 1, 1))
 		return false;
-	if ((unsigned char)((hash2 >> 8) & 0x000000FF) != this->save->getValueAt(0x4009, 1))
+	if ((unsigned char)((hash2 >> 8) & 0x000000FF) != this->save->getValueAt(Save::INTEGRITY_HASH_2 + 1, 1))
 		return false;
-	if ((unsigned char)((hash1 >> 16) & 0x000000FF) != this->save->getValueAt(0x20A, 1))
+	if ((unsigned char)((hash1 >> 16) & 0x000000FF) != this->save->getValueAt(Save::INTEGRITY_HASH_1 + 2, 1))
 		return false;
-	if ((unsigned char)((hash2 >> 16) & 0x000000FF) != this->save->getValueAt(0x400A, 1))
+	if ((unsigned char)((hash2 >> 16) & 0x000000FF) != this->save->getValueAt(Save::INTEGRITY_HASH_2 + 2, 1))
 		return false;
-	if ((unsigned char)((hash1 >> 24) & 0x000000FF) != this->save->getValueAt(0x20B, 1))
+	if ((unsigned char)((hash1 >> 24) & 0x000000FF) != this->save->getValueAt(Save::INTEGRITY_HASH_1 + 3, 1))
 		return false;
-	if ((unsigned char)((hash2 >> 24) & 0x000000FF) != this->save->getValueAt(0x400B, 1))
+	if ((unsigned char)((hash2 >> 24) & 0x000000FF) != this->save->getValueAt(Save::INTEGRITY_HASH_2 + 3, 1))
 		return false;
 
 	return true;
@@ -222,7 +227,7 @@ bool SaveManager::isValidSave() {
 void SaveManager::saveChanges() {
 
 	unsigned char hashBuffer[4];
-	long hash = this->getIntegrityHash();
+	long hash = this->getIntegrityHash(false);
 
 	hashBuffer[0] = (unsigned char)(hash & 0x000000FF);
 	hashBuffer[1] = (unsigned char)((hash >> 8) & 0x000000FF);

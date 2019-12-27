@@ -11,7 +11,7 @@ private:
 	std::string extractHamtaroString(std::string hamtaroString);
 	void setHamtaroStringAt(std::string message, int location);
 	
-	long getIntegrityHash(int padding = 0);
+	long getIntegrityHash(bool save2);
 	
 	std::string getStringAt(long index, short size);
 	void setStringAt(long index, const char* value);
