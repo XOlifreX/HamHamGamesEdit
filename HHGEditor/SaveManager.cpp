@@ -229,17 +229,17 @@ void SaveManager::saveChanges() {
 	hashBuffer[2] = (unsigned char)((hash >> 16) & 0x000000FF);
 	hashBuffer[3] = (unsigned char)((hash >> 24) & 0x000000FF);
 
-	this->save->setValueAt(0x208, hashBuffer[0]);
-	this->save->setValueAt(0x4008, hashBuffer[0]);
+	this->save->setValueAt(Save::INTEGRITY_HASH_1, hashBuffer[0]);
+	this->save->setValueAt(Save::INTEGRITY_HASH_2, hashBuffer[0]);
 
-	this->save->setValueAt(0x209, hashBuffer[1]);
-	this->save->setValueAt(0x4009, hashBuffer[1]);
+	this->save->setValueAt(Save::INTEGRITY_HASH_1 + 1, hashBuffer[1]);
+	this->save->setValueAt(Save::INTEGRITY_HASH_2 + 1, hashBuffer[1]);
 
-	this->save->setValueAt(0x20A, hashBuffer[2]);
-	this->save->setValueAt(0x400A, hashBuffer[2]);
+	this->save->setValueAt(Save::INTEGRITY_HASH_1 + 2, hashBuffer[2]);
+	this->save->setValueAt(Save::INTEGRITY_HASH_2 + 2, hashBuffer[2]);
 
-	this->save->setValueAt(0x20B, hashBuffer[3]);
-	this->save->setValueAt(0x400B, hashBuffer[3]);
+	this->save->setValueAt(Save::INTEGRITY_HASH_1 + 3, hashBuffer[3]);
+	this->save->setValueAt(Save::INTEGRITY_HASH_2 + 3, hashBuffer[3]);
 
 	this->save->applySaves();
 
