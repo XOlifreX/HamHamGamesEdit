@@ -1,6 +1,7 @@
 #pragma once
+#include <string>
 
-enum RoomIDs {
+enum RoomID {
 	CLUB_HOUSE_F1 = 0x00,
 	CLUB_HOUSE_F2 = 0x01,
 
@@ -235,5 +236,8 @@ class LocationData
 public:
 	LocationData();
 	~LocationData();
+
+	std::string getWorldNameFromRoomID(RoomID id);
+	std::string getRoomNameFromRoomID(RoomID id);
 };
 

@@ -30,11 +30,11 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Location.cpp">
-      <Filter>Source Files\Save</Filter>
-    </ClCompile>
     <ClCompile Include="Save.cpp">
       <Filter>Source Files\Save</Filter>
+    </ClCompile>
+    <ClCompile Include="Location.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
