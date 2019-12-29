@@ -1,5 +1,6 @@
 #include "File.h"
 #include "Save.h"
+#include "Location.h"
 
 
 #pragma once
@@ -30,6 +31,9 @@ public:
 
 	int getSeedCount();
 	void setSeedCount(int nuts);
+
+	RoomID getRoomId();
+	void setRoomID(RoomID id);
 
 	std::string getUsername();
 	void setUsername(std::string username);

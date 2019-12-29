@@ -262,6 +262,18 @@ int SaveManager::getSeedCount() {
 
 }
 
+RoomID SaveManager::getRoomId() {
+	return (RoomID)((int)(this->save->getValueAt(Save::ROOM_ID_1, 2))));
+}
+
+void SaveManager::setRoomID(RoomID id) {
+	this->save->setValueAt(Save::ROOM_ID_1, (unsigned char)(id & 0x000000FF));
+	this->save->setValueAt(Save::ROOM_ID_1 + 1, (unsigned char)((id >> 8) & 0x000000FF));
+
+	this->save->setValueAt(Save::ROOM_ID_2, (unsigned char)(id & 0x000000FF));
+	this->save->setValueAt(Save::ROOM_ID_2 + 1, (unsigned char)((id >> 8) & 0x000000FF));
+}
+
 void SaveManager::setSeedCount(int nuts) {
 
 	this->save->setValueAt(Save::SEEDS_COUNT_1, (unsigned char)(nuts & 0x000000FF));
