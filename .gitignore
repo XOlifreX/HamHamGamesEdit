@@ -2,10 +2,10 @@
 Debug/
 x64/
 QtView/x64
-HHGEditor/x64
-HHGEditor/File
-HHGEditor/Debug
-HHGEditor/*.gba
-HHGEditor/*.sav
-HHGEditor/*.bak
-HHGEditor/*.exe
+*/x64
+*/File
+*/Debug
+*/*.gba
+*/*.sav
+H*/*.bak
+H*/*.exe
