@@ -263,7 +263,7 @@ int SaveManager::getSeedCount() {
 }
 
 RoomID SaveManager::getRoomId() {
-	return (RoomID)((int)(this->save->getValueAt(Save::ROOM_ID_1, 2))));
+	return (RoomID)((int)(this->save->getValueAt(Save::ROOM_ID_1, 2)));
 }
 
 void SaveManager::setRoomID(RoomID id) {
